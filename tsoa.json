@@ -1,0 +1,43 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/**/*.ts"],
+  "spec": {
+    "outputDirectory": "build",
+    "specVersion": 3,
+    "securityDefinitions": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "jwt",
+        "description": "Enter jwt token",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+
+    "specMerging": "recursive",
+    "spec": {
+      "paths": {
+        "/api/media": {
+          "post": {
+            "consumes": "multipart/form-data",
+            "parameters": [
+              {
+                "in": "files",
+                "name": "randomFileIsHere",
+                "required": true,
+                "type": "string",
+                "format": "binary"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "routes": {
+    "routesDir": "build",
+    "authenticationModule": "./src/middlewares/jwtvalidate.middleware.ts"
+  }
+}
